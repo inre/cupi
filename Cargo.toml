@@ -1,0 +1,12 @@
+[package]
+name = "cupi"
+version = "0.1.0"
+authors = ["inre <inre.storm@gmail.com>"]
+
+[dependencies]
+mmap = "*"
+libc = "*"
+nix = "*"
+bitflags = "0.3"
+spidev = "*"
+mio = { git = "https://github.com/cuprumpi/mio.git" }
