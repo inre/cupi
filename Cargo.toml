@@ -1,7 +1,19 @@
 [package]
 name = "cupi"
 version = "0.1.0"
+license = "MIT"
 authors = ["inre <inre.storm@gmail.com>"]
+description   = "Cuprum Pi is a GPIO access library written on Rust for the Raspberry Pi board."
+homepage      = "https://github.com/cuprumpi/cupi"
+repository    = "https://github.com/cuprumpi/cupi"
+readme        = "README.md"
+keywords      = ["respberry", "pi", "gpio", "sys"]
+exclude       = [
+  ".gitignore",
+  ".travis.yml",
+  "example.sh",
+  "test/**/*",
+]
 
 [dependencies]
 mmap = "*"
