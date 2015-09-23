@@ -1,7 +1,5 @@
 #![feature(associated_consts)]
 #![feature(core_intrinsics)]
-#![feature(duration)]
-#![feature(thread_sleep)]
 #![feature(convert)]
 #![feature(core)]
 
