@@ -70,7 +70,7 @@ impl PinOptions {
             };
             let func_reg = gpio_base.register(GPIORegister::GPIOFunctionSelect(self.pin/10));
             let shift = (self.pin % 10) * 3;
-            func_reg.bitand(!(0b111 << shift));
+            unsafe { func_reg.bitand(!(0b111 << shift)); }
         }
         let pin = PinInput { gpio_base: self.gpio_base.clone(), pin: self.pin };
         match self.pull_ctrl {
@@ -90,7 +90,7 @@ impl PinOptions {
             let func_reg = gpio_base.register(GPIORegister::GPIOFunctionSelect(self.pin/10));
             let func_shift = (self.pin % 10) * 3;
             // Reset port functions
-            func_reg.bitand(!(0b111 << func_shift));
+            unsafe { func_reg.bitand(!(0b111 << func_shift)); }
 
             // Set default value
             let output_reg = match self.default_value {
@@ -98,11 +98,11 @@ impl PinOptions {
                 _ => gpio_base.register(GPIORegister::GPIOPinOutputSet(self.pin/32))
             };
             let output_shift = self.pin % 32;
-            output_reg.write(1 << output_shift);
+            unsafe { output_reg.write(1 << output_shift); }
 
             // Make output
             let bits = GPIOFunctionSelect::GPIOFunctionOutput.bits();
-            func_reg.bitor(bits << func_shift);
+            unsafe { func_reg.bitor(bits << func_shift); }
         }
         PinOutput { gpio_base: self.gpio_base.clone(), pin: self.pin }
     }
@@ -126,9 +126,11 @@ impl PinInput {
         };
         let level_reg = gpio_base.register(GPIORegister::GPIOPinLevel(self.pin/32));
         let shift = self.pin % 32;
-        match level_reg.read() & (1 << shift) {
-            0 => Logic::Low,
-            _ => Logic::High
+        unsafe {
+            match level_reg.read() & (1 << shift) {
+                0 => Logic::Low,
+                _ => Logic::High
+            }
         }
     }
 
@@ -152,10 +154,12 @@ impl PinInput {
         let enable_reg = gpio_base.register(GPIORegister::GPIOPinPullUpDownEnable);
         let clock_reg = gpio_base.register(GPIORegister::GPIOPinPullUpDownEnableClock(self.pin/32));
         let shift = self.pin % 32;
-        enable_reg.write(mode.bcm270x_pud()); delay_ms(5);
-        clock_reg.write(1 << shift); delay_ms(5);
-        enable_reg.write(0); delay_ms(5);
-        clock_reg.write(0); delay_ms(5);
+        unsafe {
+            enable_reg.write(mode.bcm270x_pud()); delay_ms(5);
+            clock_reg.write(1 << shift); delay_ms(5);
+            enable_reg.write(0); delay_ms(5);
+            clock_reg.write(0); delay_ms(5);
+        }
     }
 }
 
@@ -179,7 +183,7 @@ impl PinOutput {
         };
         let shift = self.pin % 32;
         let bits  = GPIOFunctionSelect::GPIOFunctionOutput.bits();
-        output_reg.write(bits << shift);
+        unsafe { output_reg.write(bits << shift); }
     }
 }
 
@@ -198,6 +202,6 @@ impl Drop for PinOutput {
         };
         let func_reg = gpio_base.register(GPIORegister::GPIOFunctionSelect(self.pin/10));
         let shift = (self.pin % 10) * 3;
-        func_reg.bitand(!(0b111 << shift));
+        unsafe { func_reg.bitand(!(0b111 << shift)); }
     }
 }

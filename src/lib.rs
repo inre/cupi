@@ -66,11 +66,11 @@ pub trait RegisterDesc {
 }
 
 pub trait RegisterOperations<T> {
-    fn write(&self, data: T);
-    fn read(&self) -> T;
-    fn bitand(&self, data: T);
-    fn bitor(&self, data: T);
-    fn bitxor(&self, data: T);
+    unsafe fn write(&self, data: T);
+    unsafe fn read(&self) -> T;
+    unsafe fn bitand(&self, data: T);
+    unsafe fn bitor(&self, data: T);
+    unsafe fn bitxor(&self, data: T);
 }
 
 pub struct Register<R: RegisterDesc> {
@@ -80,28 +80,28 @@ pub struct Register<R: RegisterDesc> {
 
 impl<R: RegisterDesc> RegisterOperations<u32> for Register<R> {
     #[inline(always)]
-    fn write(&self, data: u32) {
-        unsafe { *self.ptr = data; }
+    unsafe fn write(&self, data: u32) {
+        *self.ptr = data;
     }
 
     #[inline(always)]
-    fn read(&self) -> u32 {
-        unsafe { *self.ptr }
+    unsafe fn read(&self) -> u32 {
+        *self.ptr
     }
 
     #[inline(always)]
-    fn bitand(&self, data: u32) {
-        unsafe { *self.ptr &= data; }
+    unsafe fn bitand(&self, data: u32) {
+        *self.ptr &= data;
     }
 
     #[inline(always)]
-    fn bitor(&self, data: u32) {
-        unsafe { *self.ptr |= data; }
+    unsafe fn bitor(&self, data: u32) {
+        *self.ptr |= data;
     }
 
     #[inline(always)]
-    fn bitxor(&self, data: u32) {
-        unsafe { *self.ptr ^= data; }
+    unsafe fn bitxor(&self, data: u32) {
+        *self.ptr ^= data;
     }
 }
 
