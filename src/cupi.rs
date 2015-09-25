@@ -4,22 +4,19 @@ use sys;
 
 pub struct CuPi {
     pub board: Board,
-    pub is_root: bool,
     gpio: Option<GPIO>
 }
 
 impl CuPi {
     pub fn new() -> Result<CuPi> {
         let board = try!(board());
-        let is_root = is_root();
-        let gpio = match is_root {
+        let gpio = match is_root() {
             true => Some(try!(GPIO::new(board.cpu))),
             false => None,
         };
 
         let cupi = CuPi {
             board: board,
-            is_root: is_root,
             gpio: gpio
         };
 
