@@ -2,10 +2,19 @@ use std;
 use std::fmt::{Display, Formatter};
 use {Result, Error};
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Logic {
   High,
   Low
+}
+
+impl Logic {
+    pub fn inverse(self) -> Logic {
+        match self {
+            Logic::High => Logic::Low,
+            Logic::Low  => Logic::High
+        }
+    }
 }
 
 impl Into<usize> for Logic {
@@ -108,4 +117,17 @@ pub trait AnalogRead {
 
 pub trait AnalogWrite {
   fn analog_write(&self, value: usize);
+}
+
+#[cfg(test)]
+mod test {
+    use super::Logic;
+
+    #[test]
+    fn logic_inverse() {
+        let low = Logic::Low;
+        let high = Logic::High;
+        assert_eq!(low.inverse(), high);
+        assert_eq!(low, high.inverse());
+    }
 }
