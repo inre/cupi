@@ -5,6 +5,7 @@ use super::{PeripheralsBase, BCM2708, BCM2709, GPIORegister, GPIOFunctionSelect,
 
 pub struct GPIOBase(Mutex<MemoryMap>);
 
+#[derive(Clone)]
 pub struct GPIO {
     gpio_base: Arc<GPIOBase>
 }
@@ -34,6 +35,7 @@ impl GPIO {
     }
 }
 
+#[derive(Clone)]
 pub struct PinOptions {
     gpio_base: Arc<GPIOBase>,
     pin: usize,
@@ -108,12 +110,8 @@ impl PinOptions {
     }
 }
 
+#[derive(Clone)]
 pub struct PinInput {
-    gpio_base: Arc<GPIOBase>,
-    pin: usize
-}
-
-pub struct PinOutput {
     gpio_base: Arc<GPIOBase>,
     pin: usize
 }
@@ -169,6 +167,11 @@ impl DigitalRead for PinInput {
     }
 }
 
+#[derive(Clone)]
+pub struct PinOutput {
+    gpio_base: Arc<GPIOBase>,
+    pin: usize
+}
 
 impl PinOutput {
     // FIXME: modify regs without mutex lock

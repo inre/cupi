@@ -160,7 +160,7 @@ impl RegisterDesc for GPIOClockRegister {
     }
 }
 
-#[derive(Copy,Clone)]
+#[derive(Debug, Copy, Clone)]
 pub enum PullUpDnControl {
     PullUp,
     PullDown,
