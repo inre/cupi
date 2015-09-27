@@ -1,6 +1,6 @@
 use std::sync::{Arc, Mutex};
 use map::{SystemMemory, MemoryMap};
-use {Result, Error, Logic, DigitalLogic, DigitalWrite, DigitalRead, CPU, RegisterOperations, delay_ms};
+use {Result, Error, Logic, DigitalLogic, DigitalWrite, DigitalRead, CPU, RegisterOperations, delay_hard};
 use super::{PeripheralsBase, BCM2708, BCM2709, GPIORegister, GPIOFunctionSelect, PullUpDnControl};
 
 pub struct GPIOBase(Mutex<MemoryMap>);
@@ -153,10 +153,10 @@ impl PinInput {
         let clock_reg = gpio_base.register(GPIORegister::GPIOPinPullUpDownEnableClock(self.pin/32));
         let shift = self.pin % 32;
         unsafe {
-            enable_reg.write(mode.bcm270x_pud()); delay_ms(5);
-            clock_reg.write(1 << shift); delay_ms(5);
-            enable_reg.write(0); delay_ms(5);
-            clock_reg.write(0); delay_ms(5);
+            enable_reg.write(mode.bcm270x_pud()); delay_hard(5);
+            clock_reg.write(1 << shift); delay_hard(5);
+            enable_reg.write(0); delay_hard(5);
+            clock_reg.write(0); delay_hard(5);
         }
     }
 }

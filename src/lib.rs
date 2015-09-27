@@ -11,11 +11,18 @@ extern crate core;
 extern crate nix;
 #[macro_use] extern crate bitflags;
 
+mod time;
 mod result;
 mod map;
 mod logic;
 mod board;
 mod cupi;
+
+pub use time::{
+    delay_usec,
+    delay_ms,
+    delay_hard
+};
 
 pub use cupi::{
     CuPi
@@ -54,10 +61,6 @@ pub use bcm270x::{
     PinInput,
     PinOutput
 };
-
-use std::thread;
-use std::time::Duration;
-use nix::sys::ioctl::libc::geteuid;
 
 pub trait RegisterDesc {
     fn offset(&self) -> usize;
@@ -103,16 +106,7 @@ impl<R: RegisterDesc> RegisterOperations<u32> for Register<R> {
     }
 }
 
-#[inline(always)]
-pub fn delay(dur: Duration) {
-    // FIXME: todo sleep hard if < 100
-    thread::sleep(dur);
-}
-
-#[inline(always)]
-pub fn delay_ms(ms: u64) {
-    delay(Duration::from_millis(ms));
-}
+use nix::sys::ioctl::libc::geteuid;
 
 pub fn is_root() -> bool {
     unsafe { geteuid() == 0 }
