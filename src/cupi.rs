@@ -9,7 +9,7 @@ pub struct CuPi {
 
 impl CuPi {
     pub fn new() -> Result<CuPi> {
-        let board = try!(board());
+        let board = board();
         let gpio = match is_root() {
             true => Some(try!(GPIO::new(board.cpu))),
             false => None,

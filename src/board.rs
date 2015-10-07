@@ -10,7 +10,7 @@ use self::Hardware::{
 pub struct Board {
     pub hardware: Hardware,
     pub cpu: CPU,
-    pub memory: u32,
+    pub memory: Option<u32>,
     pub overvolted: bool
 }
 
@@ -134,39 +134,49 @@ impl Board {
     }
 }
 
-pub fn board() -> Result<Board> {
-    let cpuinfo = try!(cpuinfo());
-    let memory = try!(memory());
-    let rev = cpuinfo.0.get("Revision");
-    match cpuinfo.0.get("Hardware") {
-        Some(hardware) => match hardware.as_str() {
-            "BCM2708" => {
-                match rev {
-                    Some(ref rev) => {
-                        let size = rev.len();
-                        let overvolted  = size > 4;
-                        let revision: &str = &rev[size-4..size];
-                        let hardware = match revision.as_ref() {
-                            "0002" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V1, RaspberryMaker::Egoman),
-                            "0003" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V11, RaspberryMaker::Egoman),
-                            "0004" | "000e" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V2, RaspberryMaker::Sony),
-                            "0005" | "0009" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V2, RaspberryMaker::Qisda),
-                            "0006" | "0007" | "000d" | "000f" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V2, RaspberryMaker::Egoman),
-                            "0008" => RaspberryPi(RaspberryModel::A, RaspberryRevision::V2, RaspberryMaker::Sony),
-                            "0010" => RaspberryPi(RaspberryModel::BP, RaspberryRevision::V12, RaspberryMaker::Sony),
-                            "0011" | "0014" => RaspberryPi(RaspberryModel::CM, RaspberryRevision::V12, RaspberryMaker::Sony),
-                            "0012" => RaspberryPi(RaspberryModel::AP, RaspberryRevision::V12, RaspberryMaker::Sony),
-                            "0013" => RaspberryPi(RaspberryModel::BP, RaspberryRevision::V12, RaspberryMaker::MBest),
-                            _      => RaspberryPi(RaspberryModel::UN, RaspberryRevision::UN, RaspberryMaker::Unknown)
-                        };
-                        Ok(Board { hardware: hardware, memory: memory.total, cpu: CPU::BCM2708, overvolted: overvolted })
+pub fn board() -> Board {
+    let memory = match memory() {
+        Ok(m)  => Some(m.total),
+        Err(_) => None
+    };
+
+    match cpuinfo() {
+        Ok(cpuinfo) => {
+            let rev = cpuinfo.0.get("Revision");
+            match cpuinfo.0.get("Hardware") {
+                Some(hardware) => match hardware.as_str() {
+                    "BCM2708" => {
+                        match rev {
+                            Some(ref rev) => {
+                                let size = rev.len();
+                                let overvolted  = size > 4;
+                                let revision: &str = &rev[size-4..size];
+                                let hardware = match revision.as_ref() {
+                                    "0002" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V1, RaspberryMaker::Egoman),
+                                    "0003" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V11, RaspberryMaker::Egoman),
+                                    "0004" | "000e" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V2, RaspberryMaker::Sony),
+                                    "0005" | "0009" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V2, RaspberryMaker::Qisda),
+                                    "0006" | "0007" | "000d" | "000f" => RaspberryPi(RaspberryModel::B, RaspberryRevision::V2, RaspberryMaker::Egoman),
+                                    "0008" => RaspberryPi(RaspberryModel::A, RaspberryRevision::V2, RaspberryMaker::Sony),
+                                    "0010" => RaspberryPi(RaspberryModel::BP, RaspberryRevision::V12, RaspberryMaker::Sony),
+                                    "0011" | "0014" => RaspberryPi(RaspberryModel::CM, RaspberryRevision::V12, RaspberryMaker::Sony),
+                                    "0012" => RaspberryPi(RaspberryModel::AP, RaspberryRevision::V12, RaspberryMaker::Sony),
+                                    "0013" => RaspberryPi(RaspberryModel::BP, RaspberryRevision::V12, RaspberryMaker::MBest),
+                                    _      => RaspberryPi(RaspberryModel::UN, RaspberryRevision::UN, RaspberryMaker::Unknown)
+                                };
+                                Board { hardware: hardware, memory: memory, cpu: CPU::BCM2708, overvolted: overvolted }
+                            },
+                            None => Board { hardware: Hardware::Unknown, memory: memory, cpu: CPU::BCM2708, overvolted: false }
+                        }
                     },
-                    None => Ok(Board { hardware: Hardware::Unknown, memory: memory.total, cpu: CPU::BCM2708, overvolted: false })
-                }
-            },
-            "BCM2709" => Ok(Board { hardware: RaspberryPi(RaspberryModel::B2, RaspberryRevision::V11, RaspberryMaker::Sony), memory: memory.total, cpu: CPU::BCM2709, overvolted: false }),
-            _         => Ok(Board { hardware: Hardware::Unknown, memory: memory.total, cpu: CPU::Unknown, overvolted: false }),
+                    "BCM2709" => Board { hardware: RaspberryPi(RaspberryModel::B2, RaspberryRevision::V11, RaspberryMaker::Sony), memory: memory, cpu: CPU::BCM2709, overvolted: false },
+                    _         => Board { hardware: Hardware::Unknown, memory: memory, cpu: CPU::Unknown, overvolted: false },
+                },
+                None => Board { hardware: Hardware::Unknown, memory: memory, cpu: CPU::Unknown, overvolted: false }
+            }
         },
-        None => Ok(Board { hardware: Hardware::Unknown, memory: memory.total, cpu: CPU::Unknown, overvolted: false })
+        Err(_) => {
+            Board { hardware: Hardware::Unknown, memory: memory, cpu: CPU::Unknown, overvolted: false }
+        }
     }
 }
