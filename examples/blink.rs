@@ -4,15 +4,15 @@ use cupi::{CuPi, delay_ms, DigitalWrite};
 
 fn main() {
     let cupi = CuPi::new().unwrap();
-    let mut pinout = cupi.pin(0).unwrap().set(1).output();
+    let mut pinout = cupi.pin(0).unwrap().high().output();
     //let mut pin = cupi.pin_sys(0).unwrap();
     //pin.export().unwrap();
     //let mut pinout = pin.output().unwrap();
 
-    for _ in 0..5 {
-        pinout.set(1).unwrap();
+    for _ in 0..20 {
+        pinout.high().unwrap();
         delay_ms(600);
-        pinout.set(0).unwrap();
+        pinout.low().unwrap();
         delay_ms(600);
     }
 }

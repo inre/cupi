@@ -30,7 +30,7 @@ impl GPIO {
             gpio_base: self.gpio_base.clone(),
             pin: pin,
             pull_ctrl: Some(PullUpDnControl::PullOff),
-            default_value: 0
+            default_value: Logic::Low
         }
     }
 }
@@ -40,7 +40,7 @@ pub struct PinOptions {
     gpio_base: Arc<GPIOBase>,
     pin: usize,
     pull_ctrl: Option<PullUpDnControl>,
-    default_value: usize
+    default_value: Logic
 }
 
 impl PinOptions {
@@ -60,8 +60,16 @@ impl PinOptions {
         self.pull_ctrl = Some(PullUpDnControl::PullOff); self
     }
 
-    pub fn set(&mut self, value: usize) -> &mut PinOptions {
-        self.default_value = value; self
+    pub fn set(&mut self, value: &DigitalLogic) -> &mut PinOptions {
+        self.default_value = value.logic_level(); self
+    }
+
+    pub fn high(&mut self) -> &mut PinOptions {
+        self.set(&Logic::High)
+    }
+
+    pub fn low(&mut self) -> &mut PinOptions {
+        self.set(&Logic::Low)
     }
 
     pub fn input(&self) -> PinInput {
@@ -95,9 +103,9 @@ impl PinOptions {
             unsafe { func_reg.bitand(!(0b111 << func_shift)); }
 
             // Set default value
-            let output_reg = match self.default_value {
-                0 => gpio_base.register(GPIORegister::GPIOPinOutputClear(self.pin/32)),
-                _ => gpio_base.register(GPIORegister::GPIOPinOutputSet(self.pin/32))
+            let output_reg = match self.default_value.logic_level() {
+                Logic::Low  => gpio_base.register(GPIORegister::GPIOPinOutputClear(self.pin/32)),
+                Logic::High => gpio_base.register(GPIORegister::GPIOPinOutputSet(self.pin/32))
             };
             let output_shift = self.pin % 32;
             unsafe { output_reg.write(1 << output_shift); }
