@@ -11,7 +11,7 @@ pub struct GPIO {
 }
 
 impl GPIO {
-    pub fn new(cpu: CPU) -> Result<GPIO> {
+    pub unsafe fn new(cpu: CPU) -> Result<GPIO> {
         // Detect CPU
         let ptr = match cpu {
             CPU::BCM2708 => BCM2708::PERI_BASE + BCM2708::GPIO_BASE,

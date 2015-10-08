@@ -2,6 +2,10 @@
 #![feature(core_intrinsics)]
 #![feature(convert)]
 #![feature(core)]
+#![feature(unique)]
+#![feature(duration)]
+#![feature(thread_sleep)]
+#![feature(box_raw)]
 
 extern crate libc;
 extern crate mmap;

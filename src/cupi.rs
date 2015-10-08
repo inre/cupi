@@ -11,7 +11,7 @@ impl CuPi {
     pub fn new() -> Result<CuPi> {
         let board = board();
         let gpio = match is_root() {
-            true => Some(try!(GPIO::new(board.cpu))),
+            true => unsafe { Some(try!(GPIO::new(board.cpu))) },
             false => None,
         };
 
