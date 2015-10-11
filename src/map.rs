@@ -10,6 +10,8 @@ use {Register, RegisterDesc, Result};
 pub struct SystemMemory(File);
 pub struct MemoryMap(Unique<mmap::MemoryMap>);
 
+unsafe impl Send for MemoryMap {}
+
 impl SystemMemory {
     pub fn new() -> Result<SystemMemory> {
         let f = try!(OpenOptions::new().read(true).write(true).open("/dev/mem"));
