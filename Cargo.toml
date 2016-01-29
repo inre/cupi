@@ -22,4 +22,3 @@ nix = "*"
 bitflags = "0.3"
 spidev = "*"
 mio = { git = "https://github.com/cuprumpi/mio.git" }
-mioqu = "*"
