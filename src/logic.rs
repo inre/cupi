@@ -1,6 +1,6 @@
 use std;
 use std::fmt::{Display, Formatter};
-use {Result, Error};
+use Result;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Logic {

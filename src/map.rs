@@ -1,6 +1,5 @@
 use mmap;
 use libc;
-use std::intrinsics;
 use std::fs::{OpenOptions, File};
 use std::os::unix::io::AsRawFd;
 use std::ptr::Unique;
@@ -34,7 +33,7 @@ impl SystemMemory {
 impl MemoryMap {
     #[inline(always)]
     pub unsafe fn offset<S>(&self, offset: isize) -> *mut S {
-        intrinsics::offset(self.0.get().data() as *const S, offset) as *mut S
+        (self.0.get().data() as *const S).offset(offset) as *mut S
     }
 
     #[inline(always)]

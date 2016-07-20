@@ -6,10 +6,7 @@ use core::num::ParseIntError;
 use mmap::MapError;
 
 use self::Error::{
-    RootRequired,
     UnexpectedError,
-    UnsupportedHardware,
-    UnconnectedPin,
     Io,
     Map
 };
