@@ -1,10 +1,7 @@
-#![feature(associated_consts)]
-#![feature(unique)]
-
 extern crate libc;
 extern crate mmap;
 extern crate mio;
-extern crate spidev;
+// extern crate spidev;
 extern crate core;
 extern crate nix;
 #[macro_use] extern crate bitflags;

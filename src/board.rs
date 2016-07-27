@@ -57,18 +57,16 @@ impl fmt::Display for RaspberryModel {
 #[derive(Clone, Copy, Debug)]
 pub enum RaspberryRevision { V1, V11, V12, V2, UN }
 
-impl RaspberryRevision {
-    const PIN_TO_GPIO: [usize; 32] = [
-        // Primary
-        17, 18, 27, 22, 23, 24, 25, 4,
-        // Additional
-        2, 3, 8, 7, 10, 9, 11, 14, 15,
-        // Pi B rev.2
-        28, 29, 30, 31,
-        // B+, Pi2
-        5,  6, 13, 19, 26, 12, 16, 20, 21, 0, 1
-    ];
-}
+const RESPBERRY_PIN_TO_GPIO: [usize; 32] = [
+    // Primary
+    17, 18, 27, 22, 23, 24, 25, 4,
+    // Additional
+    2, 3, 8, 7, 10, 9, 11, 14, 15,
+    // Pi B rev.2
+    28, 29, 30, 31,
+    // B+, Pi2
+    5,  6, 13, 19, 26, 12, 16, 20, 21, 0, 1
+];
 
 impl<'a> From<&'a RaspberryRevision> for &'static str {
     fn from(rev: &'a RaspberryRevision) -> Self {
@@ -127,7 +125,7 @@ impl Board {
                 if pin >= max_pins {
                     return Err(Error::UnconnectedPin);
                 };
-                Ok(RaspberryRevision::PIN_TO_GPIO[pin])
+                Ok(RESPBERRY_PIN_TO_GPIO[pin])
             },
             Hardware::Unknown => Err(Error::UnsupportedHardware)
         }

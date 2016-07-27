@@ -12,39 +12,16 @@ pub use self::gpio::{
 pub struct BCM2708;
 pub struct BCM2709;
 
-// Access from ARM Running Linux
-pub trait PeripheralsBase {
-    const PERI_BASE: usize;
-    const GPIO_PADS: usize;
-    const CLOCK_BASE: usize;
-    const GPIO_BASE: usize;
-    const GPIO_TIMER: usize;
-    const GPIO_PWM: usize;
-    const PAGE_SIZE: usize;
-    const BLOCK_SIZE: usize;
-}
+pub const BCM2709_PERI_BASE: usize  = 0x3F000000;
+pub const BCM2708_PERI_BASE: usize  = 0x20000000;
 
-impl PeripheralsBase for BCM2709 {
-    const PERI_BASE: usize  = 0x3F000000;
-    const GPIO_PADS: usize  = 0x00100000;
-    const CLOCK_BASE: usize = 0x00101000;
-    const GPIO_BASE: usize  = 0x00200000;
-    const GPIO_TIMER: usize = 0x0000B000;
-    const GPIO_PWM: usize   = 0x0020C000;
-    const PAGE_SIZE: usize  = 4*1024;
-    const BLOCK_SIZE: usize = 4*1024;
-}
-
-impl PeripheralsBase for BCM2708 {
-    const PERI_BASE: usize  = 0x20000000;
-    const GPIO_PADS: usize  = 0x00100000;
-    const CLOCK_BASE: usize = 0x00101000;
-    const GPIO_BASE: usize  = 0x00200000;
-    const GPIO_TIMER: usize = 0x0000B000;
-    const GPIO_PWM: usize   = 0x0020C000;
-    const PAGE_SIZE: usize  = 4*1024;
-    const BLOCK_SIZE: usize = 4*1024;
-}
+pub const GPIO_PADS: usize  = 0x00100000;
+pub const CLOCK_BASE: usize = 0x00101000;
+pub const GPIO_BASE: usize  = 0x00200000;
+pub const GPIO_TIMER: usize = 0x0000B000;
+pub const GPIO_PWM: usize   = 0x0020C000;
+pub const PAGE_SIZE: usize  = 4*1024;
+pub const BLOCK_SIZE: usize = 4*1024;
 
 pub enum GPIORegister {
     GPIOFunctionSelect(usize),

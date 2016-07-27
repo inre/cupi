@@ -1,7 +1,7 @@
 use std::sync::{Arc, Mutex};
 use map::{SystemMemory, MemoryMap};
 use {Result, Error, Logic, DigitalLogic, DigitalWrite, DigitalRead, CPU, RegisterOperations, delay_hard};
-use super::{PeripheralsBase, BCM2708, BCM2709, GPIORegister, GPIOFunctionSelect, PullUpDnControl};
+use super::{GPIORegister, GPIOFunctionSelect, PullUpDnControl, BCM2708_PERI_BASE, BCM2709_PERI_BASE, GPIO_BASE};
 
 pub struct GPIOBase(Mutex<MemoryMap>);
 
@@ -14,8 +14,8 @@ impl GPIO {
     pub unsafe fn new(cpu: CPU) -> Result<GPIO> {
         // Detect CPU
         let ptr = match cpu {
-            CPU::BCM2708 => BCM2708::PERI_BASE + BCM2708::GPIO_BASE,
-            CPU::BCM2709 => BCM2709::PERI_BASE + BCM2709::GPIO_BASE,
+            CPU::BCM2708 => BCM2708_PERI_BASE + GPIO_BASE,
+            CPU::BCM2709 => BCM2709_PERI_BASE + GPIO_BASE,
             CPU::Unknown => return Err(Error::UnsupportedHardware),
         };
         let sys_mem = try!(SystemMemory::new());

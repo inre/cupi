@@ -2,12 +2,11 @@ use mmap;
 use libc;
 use std::fs::{OpenOptions, File};
 use std::os::unix::io::AsRawFd;
-use std::ptr::Unique;
-use bcm270x::{PeripheralsBase, BCM2708};
+use bcm270x::BLOCK_SIZE;
 use {Register, RegisterDesc, Result};
 
 pub struct SystemMemory(File);
-pub struct MemoryMap(Unique<mmap::MemoryMap>);
+pub struct MemoryMap(mmap::MemoryMap);
 
 unsafe impl Send for MemoryMap {}
 
@@ -19,21 +18,21 @@ impl SystemMemory {
     }
 
     pub unsafe fn mmap(&self, base: usize) -> Result<MemoryMap> {
-        let mem_map = try!(mmap::MemoryMap::new(BCM2708::BLOCK_SIZE, &[
+        let mem_map = try!(mmap::MemoryMap::new(BLOCK_SIZE, &[
             mmap::MapOption::MapReadable,
             mmap::MapOption::MapWritable,
             mmap::MapOption::MapFd(self.0.as_raw_fd()),
             mmap::MapOption::MapOffset(base),
             mmap::MapOption::MapNonStandardFlags(libc::MAP_SHARED)
         ]));
-        Ok(MemoryMap(Unique::new(Box::into_raw(Box::new(mem_map)))))
+        Ok(MemoryMap(mem_map))
     }
 }
 
 impl MemoryMap {
     #[inline(always)]
     pub unsafe fn offset<S>(&self, offset: isize) -> *mut S {
-        (self.0.get().data() as *const S).offset(offset) as *mut S
+        (self.0.data() as *const S).offset(offset) as *mut S
     }
 
     #[inline(always)]
