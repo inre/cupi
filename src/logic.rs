@@ -33,7 +33,7 @@ impl Display for Logic {
     }
 }
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Logic3 {
   High,
   Low,
@@ -67,6 +67,7 @@ impl DigitalLogic for usize {
     match *self { 0 => Logic::Low, _ => Logic::High }
   }
 }
+
 impl DigitalLogic for Logic {
   fn logic_level(&self) -> Logic {
     *self
