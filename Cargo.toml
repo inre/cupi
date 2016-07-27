@@ -1,6 +1,6 @@
 [package]
 name = "cupi"
-version = "0.1.1"
+version = "0.1.2"
 license = "MIT"
 authors = ["inre <inre.storm@gmail.com>"]
 description   = "Cuprum Pi is a GPIO access library written on Rust for the Raspberry Pi board."
@@ -16,10 +16,8 @@ exclude       = [
 ]
 
 [dependencies]
-mmap = "*"
-libc = "*"
-nix    = "0.6.0"
-bitflags = "0.3"
-#spidev = "*"
-#mio = { git = "https://github.com/cuprumpi/mio.git" }
+mmap = "^0.1"
+libc = "^0.2"
+nix  = "^0.6"
+bitflags = "*"
 mio = { git = "https://github.com/carllerche/mio.git" }
