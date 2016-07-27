@@ -1,6 +1,7 @@
 extern crate cupi;
 extern crate mio;
 
+use std::time::Duration;
 use mio::{EventLoop, Handler, Token, EventSet};
 use cupi::{CuPi};
 use cupi::sys::Edge;
@@ -22,7 +23,7 @@ impl Handler for PressHandler {
             PRESS_TOKEN => {
                 if !self.pressed {
                     self.pressed = true;
-                    event_loop.timeout_ms(DEBOUNCE_TOKEN, 200).unwrap();
+                    event_loop.timeout(DEBOUNCE_TOKEN, Duration::from_millis(200)).unwrap();
                     println!("Pressed!");
                     //print!("{}", self.pinin.get().unwrap());
                 }
@@ -47,9 +48,9 @@ impl Handler for PressHandler {
 
 fn main() {
     let cupi = CuPi::new().unwrap();
-    let _pull_up = cupi.pin(1).unwrap().pull_up().input();
+    let _pull_up = cupi.pin(0).unwrap().pull_up().input();
 
-    let mut pin = cupi.pin_sys(1).unwrap();
+    let mut pin = cupi.pin_sys(0).unwrap();
     pin.export().unwrap();
     let mut event_loop = EventLoop::new().unwrap();
     let mut pinin = pin.input().unwrap();
@@ -58,6 +59,6 @@ fn main() {
     pinin.trigger(&mut event_loop, PRESS_TOKEN, Edge::FallingEdge).unwrap();
     let mut handler = PressHandler { pressed: false };
 
-    event_loop.timeout_ms(TERM_TOKEN, 15000).unwrap();
+    event_loop.timeout(TERM_TOKEN, Duration::from_millis(15000)).unwrap();
     event_loop.run(&mut handler).unwrap();
 }

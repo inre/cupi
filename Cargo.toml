@@ -18,7 +18,8 @@ exclude       = [
 [dependencies]
 mmap = "*"
 libc = "*"
-nix = "*"
+nix    = "0.6.0"
 bitflags = "0.3"
-spidev = "*"
-mio = { git = "https://github.com/cuprumpi/mio.git" }
+#spidev = "*"
+#mio = { git = "https://github.com/cuprumpi/mio.git" }
+mio = { git = "https://github.com/carllerche/mio.git" }

@@ -3,8 +3,8 @@ use std::io::prelude::*;
 use std::io;
 use std::fs::{OpenOptions, File};
 use std::os::unix::io::{RawFd, FromRawFd, AsRawFd};
-use mio;
-use mio::{Evented, Token, EventSet, PollOpt};
+use mio::{Token, Evented, EventSet, PollOpt, Poll};
+use mio::unix::EventedFd;
 
 #[derive(Debug)]
 pub struct Selector {
@@ -38,16 +38,16 @@ impl AsRawFd for Selector {
 }
 
 impl Evented for Selector {
-    fn register(&self, selector: &mut mio::Selector, token: Token, interest: EventSet, opts: PollOpt) -> io::Result<()> {
-        selector.register(self.as_raw_fd(), token, interest, opts)
+    fn register(&self, poll: &Poll, token: Token, interest: EventSet, opts: PollOpt) -> io::Result<()> {
+        EventedFd(&self.sys.as_raw_fd()).register(poll, token, interest, opts)
     }
 
-    fn reregister(&self, selector: &mut mio::Selector, token: Token, interest: EventSet, opts: PollOpt) -> io::Result<()> {
-        selector.reregister(self.as_raw_fd(), token, interest, opts)
+    fn reregister(&self, poll: &Poll, token: Token, interest: EventSet, opts: PollOpt) -> io::Result<()> {
+        EventedFd(&self.sys.as_raw_fd()).reregister(poll, token, interest, opts)
     }
 
-    fn deregister(&self, selector: &mut mio::Selector) -> io::Result<()> {
-        selector.deregister(self.as_raw_fd())
+    fn deregister(&self, poll: &Poll) -> io::Result<()> {
+        EventedFd(&self.sys.as_raw_fd()).deregister(poll)
     }
 }
 
