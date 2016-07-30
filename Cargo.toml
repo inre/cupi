@@ -1,6 +1,6 @@
 [package]
 name = "cupi"
-version = "0.1.2"
+version = "0.1.3"
 license = "MIT"
 authors = ["inre <inre.storm@gmail.com>"]
 description   = "Cuprum Pi is a GPIO access library written on Rust for the Raspberry Pi board."
