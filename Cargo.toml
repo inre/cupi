@@ -15,9 +15,14 @@ exclude       = [
   "examples/*",
 ]
 
+[features]
+default = ["spi"]
+spi = ["spidev"]
+
 [dependencies]
 mmap = "^0.1"
 libc = "^0.2"
 nix  = "^0.6"
 bitflags = "*"
 mio = { git = "https://github.com/carllerche/mio.git" }
+spidev = { git = "https://github.com/inre/rust-spidev", optional = true }

@@ -1,7 +1,8 @@
 extern crate libc;
 extern crate mmap;
 extern crate mio;
-// extern crate spidev;
+#[cfg(feature = "spi")]
+extern crate spidev;
 extern crate core;
 extern crate nix;
 #[macro_use] extern crate bitflags;
@@ -49,13 +50,17 @@ pub use board::{
 };
 
 pub mod bcm270x;
-pub mod sys;
 
 pub use bcm270x::{
     PinOptions,
     PinInput,
     PinOutput
 };
+
+pub mod sys;
+#[cfg(feature = "spi")]
+pub mod mcp23x17;
+pub mod hat;
 
 pub trait RegisterDesc {
     fn offset(&self) -> usize;
