@@ -1,7 +1,6 @@
 use spidev::{Spidev, SpidevOptions, SpidevTransfer, SPI_MODE_0};
 use {Result, RegisterDesc, Logic, DigitalLogic, DigitalWrite, DigitalRead};
 use std::io;
-use std::io::prelude::*;
 use std::sync::{Arc, Mutex};
 use sys::Edge;
 

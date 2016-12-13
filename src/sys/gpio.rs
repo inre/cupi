@@ -1,7 +1,7 @@
 use std::io::prelude::*;
 use std::io::SeekFrom;
 use std::os::unix::io::{AsRawFd, RawFd};
-use mio::{EventLoop, Handler, Token, EventSet, PollOpt};
+use mio::{Poll, Token, Ready, PollOpt};
 use sys::{Edge, Selector, GPIOSelector, GPIOPinSelector};
 use {Result, Error, Logic, DigitalLogic, DigitalWrite, DigitalRead, is_root};
 
@@ -78,19 +78,19 @@ impl DigitalRead for PinInput {
 }
 
 impl PinInput {
-    pub fn trigger<H: Handler>(&mut self, event_loop: &mut EventLoop<H>, token: Token, edge: Edge) -> Result<()> {
+    pub fn trigger(&mut self, poll: &mut Poll, token: Token, edge: Edge) -> Result<()> {
         // Set edge for trigger
         try!(self.set_edge(edge));
         // Clear io buffer
         let mut s = String::with_capacity(255);
         try!(self.sel.read_to_string(&mut s));
         // Register sel
-        try!(event_loop.register(&self.sel, token, EventSet::readable(), PollOpt::edge() | PollOpt::urgent() ));
+        try!(poll.register(&self.sel, token, Ready::readable(), PollOpt::edge() | PollOpt::urgent() ));
         Ok(())
     }
 
-    pub fn stop_trigger<H: Handler>(&mut self, event_loop: &mut EventLoop<H>) -> Result<()> {
-        try!(event_loop.deregister(&self.sel));
+    pub fn stop_trigger(&mut self, poll: &mut Poll) -> Result<()> {
+        try!(poll.deregister(&self.sel));
         Ok(())
     }
 

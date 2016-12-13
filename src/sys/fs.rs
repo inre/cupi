@@ -3,7 +3,7 @@ use std::io::prelude::*;
 use std::io;
 use std::fs::{OpenOptions, File};
 use std::os::unix::io::{RawFd, FromRawFd, AsRawFd};
-use mio::{Token, Evented, EventSet, PollOpt, Poll};
+use mio::{Token, Evented, Ready, PollOpt, Poll};
 use mio::unix::EventedFd;
 
 #[derive(Debug)]
@@ -38,11 +38,11 @@ impl AsRawFd for Selector {
 }
 
 impl Evented for Selector {
-    fn register(&self, poll: &Poll, token: Token, interest: EventSet, opts: PollOpt) -> io::Result<()> {
+    fn register(&self, poll: &Poll, token: Token, interest: Ready, opts: PollOpt) -> io::Result<()> {
         EventedFd(&self.sys.as_raw_fd()).register(poll, token, interest, opts)
     }
 
-    fn reregister(&self, poll: &Poll, token: Token, interest: EventSet, opts: PollOpt) -> io::Result<()> {
+    fn reregister(&self, poll: &Poll, token: Token, interest: Ready, opts: PollOpt) -> io::Result<()> {
         EventedFd(&self.sys.as_raw_fd()).reregister(poll, token, interest, opts)
     }
 
@@ -74,7 +74,6 @@ impl Seek for Selector {
 }
 
 pub struct GPIOSelector;
-
 
 impl GPIOSelector {
     pub fn open<D: Display>(name: D) -> io::Result<Selector> {

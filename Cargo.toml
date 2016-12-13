@@ -7,7 +7,7 @@ description   = "Cuprum Pi is a GPIO access library written on Rust for the Rasp
 homepage      = "https://github.com/inre/cupi"
 repository    = "https://github.com/inre/cupi"
 readme        = "README.md"
-keywords      = ["respberry", "pi", "gpio", "sys"]
+keywords      = ["raspberry", "pi", "gpio", "sys"]
 exclude       = [
   ".gitignore",
   ".travis.yml",
@@ -24,5 +24,6 @@ mmap = "^0.1"
 libc = "^0.2"
 nix  = "^0.6"
 bitflags = "*"
-mio = { git = "https://github.com/carllerche/mio.git" }
+# mio = { git = "https://github.com/carllerche/mio.git" }
+mio = "0.6.1"
 spidev = { git = "https://github.com/inre/rust-spidev", optional = true }
