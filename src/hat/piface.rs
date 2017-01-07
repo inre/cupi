@@ -1,5 +1,5 @@
 use mcp23x17::{MCP23S17, PinInput, PinOutput, Port, GroupInput, GroupOutput};
-use mio::{EventLoop, Handler, Token};
+use mio::{Poll, Token};
 use {sys, Result};
 
 // PiFace 2
@@ -61,11 +61,11 @@ impl PiFace {
         Ok(try!(self.port_out.group_output(mask)))
     }
 
-    pub fn trigger<H: Handler>(&mut self, event_loop: &mut EventLoop<H>, token: Token) -> Result<()> {
-        Ok(try!(self.interrupt.trigger(event_loop, token, sys::Edge::FallingEdge)))
+    pub fn trigger(&mut self, poll: &mut Poll, token: Token) -> Result<()> {
+        Ok(try!(self.interrupt.trigger(poll, token, sys::Edge::FallingEdge)))
     }
 
-    pub fn stop_trigger<H: Handler>(&mut self, event_loop: &mut EventLoop<H>) -> Result<()> {
-        Ok(try!(self.interrupt.stop_trigger(event_loop)))
+    pub fn stop_trigger(&mut self, poll: &mut Poll) -> Result<()> {
+        Ok(try!(self.interrupt.stop_trigger(poll)))
     }
 }
