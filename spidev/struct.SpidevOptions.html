@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SpidevOptions` struct in crate `spidev`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SpidevOptions">
+
+    <title>spidev::SpidevOptions - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>spidev</a></p><script>window.sidebarCurrent = {name: 'SpidevOptions', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>spidev</a>::<wbr><a class='struct' href=''>SpidevOptions</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/spidev/lib.rs.html#136-141' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct SpidevOptions {
+    pub bits_per_word: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;,
+    pub max_speed_hz: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;,
+    pub lsb_first: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>&gt;,
+    pub spi_mode: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../spidev/struct.SpiModeFlags.html' title='spidev::SpiModeFlags'>SpiModeFlags</a>&gt;,
+}</pre><div class='docblock'><p>Options that control defaults for communication on a device</p>
+
+<p>Individual settings may be overridden via parameters that
+are specified as part of any individual SpiTransfer when
+using <code>transfer</code> or <code>transfer_multiple</code>.</p>
+
+<p>Options that are not configured with one of the builder
+functions will not be modified in the kernel when
+<code>configure</code> is called.</p>
+</div><h2 class='fields'>Fields</h2><span id='structfield.bits_per_word' class='structfield'>
+                           <span id='bits_per_word.v' class='invisible'>
+                           <code>bits_per_word: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code>
+                           </span></span><span class='stab '></span><span id='structfield.max_speed_hz' class='structfield'>
+                           <span id='max_speed_hz.v' class='invisible'>
+                           <code>max_speed_hz: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code>
+                           </span></span><span class='stab '></span><span id='structfield.lsb_first' class='structfield'>
+                           <span id='lsb_first.v' class='invisible'>
+                           <code>lsb_first: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>&gt;</code>
+                           </span></span><span class='stab '></span><span id='structfield.spi_mode' class='structfield'>
+                           <span id='spi_mode.v' class='invisible'>
+                           <code>spi_mode: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../spidev/struct.SpiModeFlags.html' title='spidev::SpiModeFlags'>SpiModeFlags</a>&gt;</code>
+                           </span></span><span class='stab '></span><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../spidev/struct.SpidevOptions.html' title='spidev::SpidevOptions'>SpidevOptions</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/spidev/lib.rs.html#143-202' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../spidev/struct.SpidevOptions.html' title='spidev::SpidevOptions'>SpidevOptions</a></code></span></h4>
+<div class='docblock'><p>Create a new, empty set of options</p>
+</div><h4 id='method.bits_per_word' class='method'><span id='bits_per_word.v-1' class='invisible'><code>fn <a href='#method.bits_per_word' class='fnname'>bits_per_word</a>(&amp;mut self, bits_per_word: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>) -&gt; &amp;mut Self</code></span></h4>
+<div class='docblock'><p>The number of bits in each SPI transfer word</p>
+
+<p>The value zero signifies eight bits.</p>
+</div><h4 id='method.max_speed_hz' class='method'><span id='max_speed_hz.v-1' class='invisible'><code>fn <a href='#method.max_speed_hz' class='fnname'>max_speed_hz</a>(&amp;mut self, max_speed_hz: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self</code></span></h4>
+<div class='docblock'><p>The maximum SPI transfer speed, in Hz</p>
+
+<p>The controller can&#39;t necessarily assign that specific clock speed.</p>
+</div><h4 id='method.lsb_first' class='method'><span id='lsb_first.v-1' class='invisible'><code>fn <a href='#method.lsb_first' class='fnname'>lsb_first</a>(&amp;mut self, lsb_first: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; &amp;mut Self</code></span></h4>
+<div class='docblock'><p>The bit justification used to transfer SPI words</p>
+
+<p>Zero indicates MSB-first; other values indicate the less common
+LSB-first encoding.  In both cases the specified value is
+right-justified in each word, so that unused (TX) or undefined (RX)
+bits are in the MSBs.</p>
+</div><h4 id='method.mode' class='method'><span id='mode.v' class='invisible'><code>fn <a href='#method.mode' class='fnname'>mode</a>(&amp;mut self, mode: <a class='struct' href='../spidev/struct.SpiModeFlags.html' title='spidev::SpiModeFlags'>SpiModeFlags</a>) -&gt; &amp;mut Self</code></span></h4>
+<div class='docblock'><p>Set the SPI Transfer Mode</p>
+
+<p>Use the constants SPI_MODE_0..SPI_MODE_3; or if you prefer
+you can combine SPI_CPOL (clock polarity, idle high iff this
+is set) or SPI_CPHA (clock phase, sample on trailing edge
+iff this is set) flags.</p>
+
+<p>Note that this API will always prefer to use SPI_IOC_WR_MODE
+rathern than the 32-bit one to target the greatest number of
+kernels.  SPI_IOC_WR_MODE32 is only present in 3.15+ kernels.
+SPI_IOC_WR_MODE32 will be used iff bits higher than those in
+8bits are provided (e.g. Dual/Quad Tx/Rx).</p>
+</div><h4 id='method.build' class='method'><span id='build.v' class='invisible'><code>fn <a href='#method.build' class='fnname'>build</a>(&amp;self) -&gt; Self</code></span></h4>
+<div class='docblock'><p>Finalize and build the SpidevOptions</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../spidev/struct.SpidevOptions.html' title='spidev::SpidevOptions'>SpidevOptions</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/spidev/lib.rs.html#135' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../spidev/struct.SpidevOptions.html' title='spidev::SpidevOptions'>SpidevOptions</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "spidev";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

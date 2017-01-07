@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `PiFace` struct in crate `cupi`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, PiFace">
+
+    <title>cupi::hat::PiFace - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>cupi</a>::<wbr><a href='index.html'>hat</a></p><script>window.sidebarCurrent = {name: 'PiFace', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>cupi</a>::<wbr><a href='index.html'>hat</a>::<wbr><a class='struct' href=''>PiFace</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/cupi/hat/piface.rs.html#7-13' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct PiFace { /* fields omitted */ }</pre><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../cupi/hat/struct.PiFace.html' title='cupi::hat::PiFace'>PiFace</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/cupi/hat/piface.rs.html#15-71' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>unsafe fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='type' href='../../cupi/type.Result.html' title='cupi::Result'>Result</a>&lt;<a class='struct' href='../../cupi/hat/struct.PiFace.html' title='cupi::hat::PiFace'>PiFace</a>&gt;</code></span></h4>
+<h4 id='method.input' class='method'><span id='input.v' class='invisible'><code>fn <a href='#method.input' class='fnname'>input</a>(&amp;mut self, pin: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='type' href='../../cupi/type.Result.html' title='cupi::Result'>Result</a>&lt;<a class='struct' href='../../cupi/mcp23x17/struct.PinInput.html' title='cupi::mcp23x17::PinInput'>PinInput</a>&gt;</code></span></h4>
+<h4 id='method.output' class='method'><span id='output.v' class='invisible'><code>fn <a href='#method.output' class='fnname'>output</a>(&amp;mut self, pin: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='type' href='../../cupi/type.Result.html' title='cupi::Result'>Result</a>&lt;<a class='struct' href='../../cupi/mcp23x17/struct.PinOutput.html' title='cupi::mcp23x17::PinOutput'>PinOutput</a>&gt;</code></span></h4>
+<h4 id='method.group_input' class='method'><span id='group_input.v' class='invisible'><code>fn <a href='#method.group_input' class='fnname'>group_input</a>(&amp;mut self, mask: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>) -&gt; <a class='type' href='../../cupi/type.Result.html' title='cupi::Result'>Result</a>&lt;<a class='struct' href='../../cupi/mcp23x17/struct.GroupInput.html' title='cupi::mcp23x17::GroupInput'>GroupInput</a>&gt;</code></span></h4>
+<h4 id='method.group_output' class='method'><span id='group_output.v' class='invisible'><code>fn <a href='#method.group_output' class='fnname'>group_output</a>(&amp;mut self, mask: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>) -&gt; <a class='type' href='../../cupi/type.Result.html' title='cupi::Result'>Result</a>&lt;<a class='struct' href='../../cupi/mcp23x17/struct.GroupOutput.html' title='cupi::mcp23x17::GroupOutput'>GroupOutput</a>&gt;</code></span></h4>
+<h4 id='method.trigger' class='method'><span id='trigger.v' class='invisible'><code>fn <a href='#method.trigger' class='fnname'>trigger</a>(&amp;mut self, poll: &amp;mut <a class='struct' href='../../mio/poll/struct.Poll.html' title='mio::poll::Poll'>Poll</a>, token: <a class='struct' href='../../mio/token/struct.Token.html' title='mio::token::Token'>Token</a>) -&gt; <a class='type' href='../../cupi/type.Result.html' title='cupi::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<h4 id='method.stop_trigger' class='method'><span id='stop_trigger.v' class='invisible'><code>fn <a href='#method.stop_trigger' class='fnname'>stop_trigger</a>(&amp;mut self, poll: &amp;mut <a class='struct' href='../../mio/poll/struct.Poll.html' title='mio::poll::Poll'>Poll</a>) -&gt; <a class='type' href='../../cupi/type.Result.html' title='cupi::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "cupi";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>
