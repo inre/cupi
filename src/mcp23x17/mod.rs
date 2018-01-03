@@ -65,15 +65,15 @@ const CMD_WRITE: usize = 0x40;
 const CMD_READ: usize  = 0x41;
 
 bitflags! {
-    flags IOCONRegister: u8 {
-        const IOCON_UNUSED = 0x01,
-	    const IOCON_INTPOL = 0x02,
-	    const IOCON_ODR	   = 0x04,
-        const IOCON_HAEN   = 0x08,
-        const IOCON_DISSLW = 0x10,
-        const IOCON_SEQOP  = 0x20,
-        const IOCON_MIRROR = 0x40,
-        const IOCON_BANK_MODE = 0x80
+    struct IOCONRegister: u8 {
+        const IOCON_UNUSED = 0x01;
+	    const IOCON_INTPOL = 0x02;
+	    const IOCON_ODR	   = 0x04;
+        const IOCON_HAEN   = 0x08;
+        const IOCON_DISSLW = 0x10;
+        const IOCON_SEQOP  = 0x20;
+        const IOCON_MIRROR = 0x40;
+        const IOCON_BANK_MODE = 0x80;
     }
 }
 
@@ -94,9 +94,9 @@ impl MCP23S17 {
         try!(spi.configure(&options));
 
         let iocona = MCP23X17Register::IOCON(0);
-        try!(iocona.write(&spi, address, (IOCON_SEQOP | IOCON_HAEN).bits()));
+        try!(iocona.write(&spi, address, (IOCONRegister::IOCON_SEQOP | IOCONRegister::IOCON_HAEN).bits()));
         let ioconb = MCP23X17Register::IOCON(1);
-        try!(ioconb.write(&spi, address, (IOCON_SEQOP | IOCON_HAEN).bits()));
+        try!(ioconb.write(&spi, address, (IOCONRegister::IOCON_SEQOP | IOCONRegister::IOCON_HAEN).bits()));
 
         Ok(MCP23S17 {
             spi: Arc::new(Mutex::new(spi)),
