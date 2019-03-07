@@ -26,7 +26,7 @@ Cuprum Pi is a GPIO access library written on Rust for the Raspberry Pi.
 
 *API Documentation*
 
-[doc](http://cuprumpi.github.io/cupi/cupi/index.html)
+[doc](http://inre.github.io/cupi/cupi/index.html)
 
 *Cross Compiling for Raspberry Pi*
 
